@@ -1,0 +1,27 @@
+---
+// ⚠️ PLACEHOLDER stats — representative figures for a home nail studio, NOT
+// verified. Confirm/replace with Melanie's real numbers before go-live.
+const stats = [
+  { value: 500, suffix: '+', label: 'sets created' },
+  { value: 4.9, suffix: '★', label: 'average rating', decimals: 1 },
+  { value: 100, suffix: '%', label: 'by appointment' },
+  { value: 3, suffix: '+', label: 'years of care' },
+];
+---
+
+<section aria-label="At a glance" class="relative py-14 sm:py-16">
+  <div class="mx-auto max-w-5xl px-5 sm:px-8">
+    <div class="reveal reveal-scale grid grid-cols-2 gap-6 rounded-3xl border border-[var(--color-mist)] bg-white/70 p-8 shadow-[0_20px_50px_-30px_rgba(110,81,87,0.35)] backdrop-blur-sm sm:grid-cols-4 sm:gap-4">
+      {
+        stats.map((s, i) => (
+          <div class={`reveal reveal-${i + 1} text-center`}>
+            <p class="stat-num">
+              <span data-count={s.value} data-suffix={s.suffix} data-decimals={s.decimals ?? 0}>0{s.suffix}</span>
+            </p>
+            <p class="mt-1.5 text-sm text-[var(--color-taupe)]">{s.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

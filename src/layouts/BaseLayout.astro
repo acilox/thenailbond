@@ -96,7 +96,7 @@ const faqLd = {
     <script type="application/ld+json" set:html={JSON.stringify(businessLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
   </head>
-  <body>
+  <body class="grain">
     <div id="scrollBar" aria-hidden="true"></div>
     <div class="field" aria-hidden="true">
       <span class="orb orb--1"></span>
@@ -115,7 +115,7 @@ const faqLd = {
     <script is:inline>
       // Reveal-on-scroll (respects reduced-motion via CSS).
       (function () {
-        const els = document.querySelectorAll('.reveal');
+        const els = document.querySelectorAll('.reveal, .swoosh');
         if (!('IntersectionObserver' in window) || !els.length) {
           els.forEach((el) => el.classList.add('is-visible'));
           return;
@@ -184,6 +184,81 @@ const faqLd = {
             el.style.transform = '';
           });
         });
+      })();
+
+      // Count-up for stat numbers (fires when the band scrolls into view).
+      (function () {
+        const nums = document.querySelectorAll('[data-count]');
+        if (!nums.length) return;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const run = (el) => {
+          const target = parseFloat(el.getAttribute('data-count'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+          if (reduce) { el.textContent = target.toFixed(decimals) + suffix; return; }
+          const dur = 1500, start = performance.now();
+          const step = (now) => {
+            const p = Math.min((now - start) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = (target * eased).toFixed(decimals) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        };
+        if (!('IntersectionObserver' in window)) { nums.forEach(run); return; }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
+        }, { threshold: 0.6 });
+        nums.forEach((n) => io.observe(n));
+      })();
+
+      // Shade finder — recolor the nail set + update the "book this shade" link.
+      (function () {
+        const wrap = document.getElementById('swatches');
+        const nailSet = document.getElementById('nailSet');
+        const nameEl = document.getElementById('shadeName');
+        const noteEl = document.getElementById('shadeNote');
+        const inlineEl = document.getElementById('shadeInline');
+        const bookEl = document.getElementById('shadeBook');
+        const section = document.getElementById('shades');
+        if (!wrap || !nailSet) return;
+        const wa = section ? section.getAttribute('data-wa') : '';
+        wrap.addEventListener('click', (ev) => {
+          const btn = ev.target.closest('.swatch');
+          if (!btn) return;
+          const hex = btn.getAttribute('data-hex');
+          const name = btn.getAttribute('data-name');
+          const note = btn.getAttribute('data-note');
+          nailSet.style.setProperty('--shade', hex);
+          if (nameEl) nameEl.textContent = name;
+          if (noteEl) noteEl.textContent = note;
+          if (inlineEl) inlineEl.textContent = name;
+          if (bookEl && wa) {
+            bookEl.href = 'https://wa.me/' + wa + '?text=' +
+              encodeURIComponent('Hi Mel! I’d love to book the “' + name + '” shade at The Nail Bond 💅');
+          }
+          wrap.querySelectorAll('.swatch').forEach((s) => s.setAttribute('aria-pressed', s === btn ? 'true' : 'false'));
+        });
+      })();
+
+      // Gallery lightbox.
+      (function () {
+        const lb = document.getElementById('lightbox');
+        if (!lb) return;
+        const lbImg = lb.querySelector('img');
+        const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; lbImg.src = ''; };
+        document.querySelectorAll('[data-zoom]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const img = btn.querySelector('img');
+            if (!img) return;
+            lbImg.src = img.currentSrc || img.src;
+            lbImg.alt = img.alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+        lb.addEventListener('click', (e) => { if (e.target === lb || e.target.closest('.lb-close')) close(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
       })();
     </script>
   </body>
