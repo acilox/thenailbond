@@ -1,0 +1,48 @@
+---
+import { services, bookFor } from '../data/site';
+---
+
+<section id="services" class="relative py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow">The menu</span>
+      <h2 class="display-2 mt-3">Nails, done with care.</h2>
+      <p class="mt-4 text-lg text-[var(--color-taupe)]">
+        Every set is tailored to you and your natural nails — less is more, clean
+        details, and a finish that quietly elevates your everyday look. Message for
+        pricing and to find the service that's right for you.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((s, i) => (
+          <article class={`card card-hover reveal reveal-${(i % 3) + 1} group flex flex-col p-6`}>
+            <span class="icon-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+            </span>
+            <h3 class="mt-4 text-xl">{s.name}</h3>
+            <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-gold)]">{s.tag}</p>
+            <p class="mt-3 flex-1 text-[15px] leading-relaxed text-[var(--color-taupe)]">{s.body}</p>
+            <a
+              href={bookFor(s.name)}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-rose)] transition-colors hover:text-[var(--color-mauve)]"
+            >
+              DM for pricing
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[var(--color-mist)] bg-white p-6">
+      <p class="text-[15px] text-[var(--color-taupe)]">
+        <span class="font-semibold text-[var(--color-mauve)]">Not sure what you need?</span> Send a photo of your nails or an inspo pic — I'll help you choose.
+      </p>
+      <a href="#book" class="btn btn-primary !py-2.5 text-sm">Ask a question</a>
+    </div>
+  </div>
+</section>

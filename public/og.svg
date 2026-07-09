@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="The Nail Bond by Mel — luxury nails, cozy studio in Serena, Dubai">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf5f1"/>
+      <stop offset="1" stop-color="#f6e9e4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="82%" cy="18%" r="55%">
+      <stop offset="0" stop-color="#f4e3e0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f4e3e0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mono" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4e3e0"/>
+      <stop offset="1" stop-color="#e7d3c4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Monogram tile -->
+  <rect x="96" y="150" width="150" height="150" rx="34" fill="url(#mono)"/>
+  <text x="171" y="258" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="96" font-style="italic" font-weight="500" fill="#6e5157">B</text>
+  <path d="M218 173c12 0 19 7 19 19 0 0-9.5 0-15.5-6S218 173 218 173z" fill="#b08d5b" opacity="0.9"/>
+
+  <!-- Eyebrow -->
+  <text x="98" y="378" font-family="Georgia, 'Times New Roman', serif" font-size="26"
+        letter-spacing="6" fill="#b08d5b">SERENA · DUBAI</text>
+
+  <!-- Wordmark -->
+  <text x="94" y="450" font-family="Georgia, 'Times New Roman', serif" font-size="82"
+        font-weight="600" fill="#3a2c2a">The Nail Bond</text>
+
+  <!-- Tagline -->
+  <text x="98" y="512" font-family="Georgia, 'Times New Roman', serif" font-size="36"
+        font-style="italic" fill="#8a7268">Luxury nails, cozy studio</text>
+
+  <!-- Services line -->
+  <text x="98" y="560" font-family="Arial, Helvetica, sans-serif" font-size="26"
+        fill="#8a7268">BIAB · Russian Manicure · Extensions</text>
+</svg>

@@ -1,0 +1,190 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
+import '../styles/global.css';
+import { site } from '../data/site';
+import { faqs } from '../data/faqs';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'The Nail Bond by Mel | Luxury Nails & Cozy Home Studio in Serena, Dubai',
+  description = 'Soft, clean, minimal nails by Melanie — a home nail studio in Serena, Dubai. BIAB, Russian manicure, gel extensions & delicate nail art, one client at a time. Book on WhatsApp or Instagram.',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // normalize: no trailing slash
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+// JSON-LD — NailSalon (most-specific LocalBusiness subtype) + founder Person +
+// FAQPage (playbook §5, local service business).
+const businessLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NailSalon',
+  '@id': `${Astro.site}#business`,
+  name: site.fullName,
+  description,
+  url: canonical,
+  image: `${base}/og.svg`,
+  telephone: `+${site.waNumber}`,
+  priceRange: '$$',
+  areaServed: [
+    { '@type': 'City', name: 'Dubai' },
+    { '@type': 'Place', name: 'Serena, Dubai' },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Dubai',
+    addressRegion: 'Dubai',
+    addressCountry: 'AE',
+  },
+  founder: {
+    '@type': 'Person',
+    name: site.owner,
+    jobTitle: 'Nail Technician & Founder',
+  },
+  makesOffer: [
+    'BIAB manicure',
+    'Russian manicure',
+    'Gel nail extensions',
+    'Nail art and design',
+    'Gel soak-off and removal',
+  ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+  knowsAbout: ['BIAB', 'Russian manicure', 'Gel extensions', 'Minimal nail art'],
+  sameAs: [site.socials.instagram],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Unlisted while in testing — remove noindex at go-live/handoff. -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${base}/og.svg`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${base}/og.svg`} />
+
+    <meta name="theme-color" content="#f4e3e0" />
+    <script type="application/ld+json" set:html={JSON.stringify(businessLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </head>
+  <body>
+    <div id="scrollBar" aria-hidden="true"></div>
+    <div class="field" aria-hidden="true">
+      <span class="orb orb--1"></span>
+      <span class="orb orb--2"></span>
+      <span class="orb orb--3"></span>
+    </div>
+
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
+      >Skip to content</a
+    >
+
+    <slot />
+
+    <script is:inline>
+      // Reveal-on-scroll (respects reduced-motion via CSS).
+      (function () {
+        const els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window) || !els.length) {
+          els.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+
+      // Mobile nav toggle.
+      (function () {
+        const btn = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        btn.addEventListener('click', () => {
+          const open = menu.classList.toggle('hidden') === false;
+          btn.setAttribute('aria-expanded', String(open));
+        });
+        menu.querySelectorAll('a').forEach((a) =>
+          a.addEventListener('click', () => menu.classList.add('hidden'))
+        );
+      })();
+
+      // Scroll progress bar + nav shadow.
+      (function () {
+        const bar = document.getElementById('scrollBar');
+        const nav = document.getElementById('siteNav');
+        const sticky = document.getElementById('stickyBook');
+        const onScroll = () => {
+          const h = document.documentElement;
+          const max = h.scrollHeight - h.clientHeight;
+          const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          if (bar) bar.style.width = pct + '%';
+          if (nav) nav.classList.toggle('scrolled', h.scrollTop > 12);
+          // Sticky mobile CTA: show after the hero, hide near the footer.
+          if (sticky) {
+            const nearBottom = max - h.scrollTop < 260;
+            sticky.classList.toggle('show', h.scrollTop > 640 && !nearBottom);
+          }
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      })();
+
+      // Magnetic buttons (pointer only, respects reduced-motion).
+      (function () {
+        const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (rm || !window.matchMedia('(pointer:fine)').matches) return;
+        document.querySelectorAll('[data-magnetic]').forEach((el) => {
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2;
+            const y = e.clientY - r.top - r.height / 2;
+            el.style.transform = `translate(${x * 0.15}px, ${y * 0.25}px)`;
+          });
+          el.addEventListener('pointerleave', () => {
+            el.style.transform = '';
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

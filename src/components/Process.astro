@@ -1,0 +1,60 @@
+---
+import { site } from '../data/site';
+const steps = [
+  {
+    n: '01',
+    title: 'Say hi',
+    body: 'Message on WhatsApp or DM on Instagram with the service you’d like — a photo of your nails or an inspo pic helps me suggest the best option.',
+  },
+  {
+    n: '02',
+    title: 'Pick a time',
+    body: 'We’ll find a slot that suits you. Once it’s confirmed, I’ll send you the studio address and directions in Serena.',
+  },
+  {
+    n: '03',
+    title: 'Your appointment',
+    body: 'Settle into the cozy studio for unhurried, one-on-one time. Relax while I create a clean, soft set shaped just for you.',
+  },
+  {
+    n: '04',
+    title: 'Leave & maintain',
+    body: 'You leave with beautiful nails and simple aftercare tips — plus a standing invite to rebook whenever you’re ready.',
+  },
+];
+---
+
+<section id="process" class="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
+  <div class="reveal max-w-2xl">
+    <span class="eyebrow">How booking works</span>
+    <h2 class="display-2 mt-3">From "hi" to happy nails.</h2>
+    <p class="mt-4 text-lg text-[var(--color-taupe)]">
+      No apps, no forms to wrestle with — just a friendly message and a time that
+      works for you.
+    </p>
+  </div>
+
+  <ol class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+    {
+      steps.map((s, i) => (
+        <li class={`card reveal reveal-${(i % 4) + 1} relative p-6`}>
+          <span class="font-[var(--font-display)] text-4xl font-semibold text-[var(--color-rose-soft)]">{s.n}</span>
+          <h3 class="mt-2 text-lg">{s.title}</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-[var(--color-taupe)]">{s.body}</p>
+          {i < steps.length - 1 && (
+            <span class="absolute right-4 top-7 hidden text-[var(--color-nude)] lg:block">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="reveal mt-10 text-center">
+    <a href={site.waHref} target="_blank" rel="noopener noreferrer" data-magnetic class="btn btn-whatsapp text-base">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.03-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+      Message Mel to book
+    </a>
+  </div>
+</section>

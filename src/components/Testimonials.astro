@@ -1,0 +1,44 @@
+---
+// ⚠️ PLACEHOLDER testimonials — representative of a home nail studio, NOT real
+// client reviews. Replace with Melanie's genuine reviews (with permission) before
+// go-live; keep names to first-name + initial unless clients agree otherwise.
+const testimonials = [
+  { quote: 'The most relaxing appointment — it feels like visiting a friend who happens to do incredible nails. My BIAB lasted four weeks with zero chips.', name: 'Sarah A.', role: 'BIAB client', featured: true },
+  { quote: 'Finally someone who does clean, minimal nails that still look expensive. The Russian mani is so precise — I get compliments constantly.', name: 'Priya K.', role: 'Russian manicure', featured: true },
+  { quote: 'Cozy, private and never rushed. Mel really listens to what you want and my extensions look so natural.', name: 'Lena M.', role: 'Gel extensions' },
+  { quote: 'I’m so fussy about hygiene and this studio put me completely at ease. Beautiful work and lovely company.', name: 'Aisha R.', role: 'BIAB client' },
+  { quote: 'The little details make all the difference. Soft, subtle art that suits my everyday look perfectly.', name: 'Chloe T.', role: 'Nail art' },
+  { quote: 'Booking on WhatsApp was effortless and the whole experience felt so personal. Already rebooked!', name: 'Noor S.', role: 'Regular client' },
+];
+---
+
+<section id="reviews" class="bg-[var(--color-nude-soft)]/40 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow">Kind words</span>
+      <h2 class="display-2 mt-3">Loved by the clients who visit.</h2>
+      <p class="mt-4 text-lg text-[var(--color-taupe)]">
+        A cozy studio, careful work and a finish that lasts — here's what keeps
+        clients coming back.
+      </p>
+    </div>
+
+    <div class="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [column-fill:_balance]">
+      {
+        testimonials.map((t) => (
+          <figure class={`card card-hover mb-5 break-inside-avoid p-6 ${t.featured ? '!bg-[var(--color-rose-tint)]' : ''}`}>
+            <div class="mb-3 text-sm text-[var(--color-gold)]">★★★★★</div>
+            <blockquote class="leading-relaxed text-[var(--color-ink)]">"{t.quote}"</blockquote>
+            <figcaption class="mt-4 flex items-center gap-3">
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-[var(--color-rose)] to-[var(--color-gold)] text-sm font-semibold text-white">{t.name.charAt(0)}</span>
+              <span>
+                <span class="block text-sm font-semibold text-[var(--color-mauve)]">{t.name}</span>
+                <span class="block text-xs text-[var(--color-taupe)]">{t.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+---
+import { faqs } from '../data/faqs';
+---
+
+<section id="faq" class="py-20 sm:py-28">
+  <div class="mx-auto max-w-3xl px-5 sm:px-8">
+    <div class="reveal text-center">
+      <span class="eyebrow">Good to know</span>
+      <h2 class="display-2 mt-3">Questions, answered.</h2>
+    </div>
+
+    <div class="reveal reveal-2 card mt-10 overflow-hidden">
+      {
+        faqs.map((f) => (
+          <details class="faq px-6">
+            <summary class="flex items-center justify-between gap-4 py-5 text-left">
+              <span class="text-lg font-semibold text-[var(--color-mauve)]">{f.q}</span>
+              <svg class="chev shrink-0 text-[var(--color-rose)]" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <p class="-mt-1 pb-5 leading-relaxed text-[var(--color-taupe)]">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

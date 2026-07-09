@@ -1,0 +1,51 @@
+---
+const features = [
+  {
+    title: 'A calm, private space',
+    body: 'No busy salon, no waiting room. Just a warm, cozy home studio in Serena where the focus is entirely on you.',
+    icon: '<path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  },
+  {
+    title: 'One client at a time',
+    body: 'You’re never rushed or double-booked. Unhurried, one-on-one time so every set gets the care and detail it deserves.',
+    icon: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/>',
+  },
+  {
+    title: 'Hygiene you can trust',
+    body: 'Clean, sanitised tools and a fresh setup for every appointment — your nail health always comes first.',
+    icon: '<path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/>',
+  },
+  {
+    title: 'Kind to your nails',
+    body: 'Gentle prep, careful removal and healthy natural nails underneath — no filing down, no damage, no shortcuts.',
+    icon: '<path d="M12 3c-3 4-4.5 6.5-4.5 9a4.5 4.5 0 0 0 9 0c0-2.5-1.5-5-4.5-9z"/>',
+  },
+];
+---
+
+<section id="experience" class="bg-mauve relative overflow-hidden py-20 text-white sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow !text-[var(--color-gold-bright)]">The studio experience</span>
+      <h2 class="display-2 mt-3 !text-white">Booking here feels different.</h2>
+      <p class="mt-4 text-lg text-white/80">
+        A home studio means something rarer than a salon chair: real time, real care,
+        and a space that actually feels good to be in.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        features.map((f, i) => (
+          <div class={`reveal reveal-${(i % 4) + 1} rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm`}>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-[var(--color-gold-bright)]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={f.icon} />
+            </span>
+            <h3 class="mt-4 text-lg !text-white">{f.title}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-white/75">{f.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

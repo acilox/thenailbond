@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import nails1 from '../assets/nails-1.jpg';
+import nails2 from '../assets/nails-2.jpg';
+import nails3 from '../assets/nails-3.jpg';
+import nails4 from '../assets/nails-4.jpg';
+import nails5 from '../assets/nails-5.jpg';
+
+// ⚠️ Placeholders (licensed Unsplash). Swap each for Melanie's own work before
+// go-live — keep the same import names and the layout stays identical.
+const shots = [
+  { src: nails1, alt: 'Minimal grey, white and silver manicure' },
+  { src: nails2, alt: 'Soft nude glitter gel finish' },
+  { src: nails3, alt: 'Elegant dark tortoise-shell nail art' },
+  { src: nails4, alt: 'Soft pink and mauve manicure' },
+  { src: nails5, alt: 'Almond nails with delicate red art' },
+];
+---
+
+<section id="gallery" class="bg-[var(--color-nude-soft)]/40 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <span class="eyebrow">Recent work</span>
+        <h2 class="display-2 mt-3">A little look at the details.</h2>
+        <p class="mt-4 text-lg text-[var(--color-taupe)]">
+          Soft palettes, clean finishes and quiet detail. Your set is always shaped
+          to suit you — see more day-to-day on Instagram.
+        </p>
+      </div>
+      <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-outline text-sm">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @{site.instagramHandle}
+      </a>
+    </div>
+
+    <div class="reveal reveal-2 mt-10 columns-2 gap-4 lg:columns-3 [column-fill:_balance]">
+      {
+        shots.map((s) => (
+          <figure class="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-[var(--color-mist)] bg-white">
+            <Image
+              src={s.src}
+              alt={s.alt}
+              widths={[300, 500, 700]}
+              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 45vw, 30vw"
+              loading="lazy"
+              class="w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+            />
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

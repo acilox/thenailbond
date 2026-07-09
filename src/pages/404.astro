@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Page not found | The Nail Bond by Mel">
+  <main id="main" class="bg-hero-soft flex min-h-screen items-center justify-center px-5 py-24 text-center">
+    <div class="reveal is-visible mx-auto max-w-lg">
+      <img src={`${base}/favicon.svg`} width="64" height="64" alt="" class="mx-auto rounded-2xl" />
+      <p class="eyebrow mt-8">Oops</p>
+      <h1 class="display-1 mt-3">This page has grown out.</h1>
+      <p class="measure mx-auto mt-5 text-lg text-[var(--color-taupe)]">
+        The link you followed isn't here anymore — but your next fresh set is only a
+        message away. Let's get you booked in.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={`${base}/`} class="btn btn-primary text-base">Back to home</a>
+        <a href={site.waHref} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp text-base">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+          Book on WhatsApp
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

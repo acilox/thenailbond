@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="The Nail Bond">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4e3e0"/>
+      <stop offset="1" stop-color="#e7d3c4"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <!-- Serif B monogram -->
+  <text x="31" y="45" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="40" font-style="italic"
+        font-weight="500" fill="#6e5157">B</text>
+  <!-- Leaf accent -->
+  <path d="M41 17c5 0 8 3 8 8 0 0-4 0-6.5-2.5S41 17 41 17z" fill="#b08d5b" opacity="0.9"/>
+  <path d="M42 24c1.5-2 3.5-4 6-5" stroke="#6e5157" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+</svg>

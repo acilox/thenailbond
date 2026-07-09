@@ -1,0 +1,29 @@
+---
+const items = [
+  'BIAB',
+  'Russian Manicure',
+  'Gel Extensions',
+  'Minimal Nail Art',
+  'Soak-Off & Removal',
+  'Soft Gel',
+  'Cuticle Care',
+  'Aftercare Advice',
+];
+// Duplicated once for a seamless -50% loop.
+const track = [...items, ...items];
+---
+
+<section aria-label="Services offered" class="border-y border-[var(--color-mist)] bg-[var(--color-nude-soft)]/50 py-5">
+  <div class="marquee">
+    <div class="marquee__track">
+      {
+        track.map((t) => (
+          <span class="mx-6 flex items-center gap-3 whitespace-nowrap text-[var(--color-mauve)]">
+            <span class="font-[var(--font-display)] text-lg font-medium">{t}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 4-4.5 6.5-4.5 9a4.5 4.5 0 0 0 9 0c0-2.5-1.5-5-4.5-9z"/></svg>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
