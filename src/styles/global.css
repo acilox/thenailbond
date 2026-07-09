@@ -60,8 +60,8 @@ h1, h2, h3, h4 {
   line-height: 1.1;
 }
 
-.display-1 { font-size: clamp(2.6rem, 8.5vw, 4.6rem); }
-.display-2 { font-size: clamp(2rem, 6vw, 3rem); }
+.display-1 { font-size: clamp(2.9rem, 9.2vw, 5.2rem); font-weight: 600; letter-spacing: -0.022em; }
+.display-2 { font-size: clamp(2.1rem, 6.2vw, 3.15rem); font-weight: 600; letter-spacing: -0.018em; }
 
 .eyebrow {
   font-family: var(--font-sans);
@@ -73,6 +73,16 @@ h1, h2, h3, h4 {
 }
 
 .measure { max-width: 62ch; }
+
+/* Kinetic headline — each line masks + rises on load (Gen-Z type motion) */
+.kinetic-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.kinetic-line > span { display: inline-block; transform: translateY(112%); opacity: 0;
+  animation: kinetic-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.kinetic-line:nth-child(1) > span { animation-delay: 0.06s; }
+.kinetic-line:nth-child(2) > span { animation-delay: 0.22s; }
+.kinetic-line:nth-child(3) > span { animation-delay: 0.38s; }
+/* extra room so the hand-drawn underline swoosh isn't clipped by the mask */
+.kinetic-line--swoosh { padding-bottom: 1.15rem; }
 
 /* ---------- Keyframes ---------- */
 @keyframes drift-1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-3rem, 2rem) scale(1.08); } }
@@ -88,6 +98,7 @@ h1, h2, h3, h4 {
 @keyframes marquee-x { to { transform: translateX(-50%); } }
 @keyframes draw-swoosh { to { stroke-dashoffset: 0; } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes kinetic-rise { from { transform: translateY(112%) rotate(2deg); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ---------- Ambient animated background ---------- */
 .field { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
@@ -195,6 +206,38 @@ h1, h2, h3, h4 {
   background: var(--color-rose-tint); color: var(--color-rose); border: 1px solid var(--color-rose-soft);
 }
 
+/* ---------- Reusable image frame (hero tiles + gallery) ---------- */
+.img-frame {
+  position: relative; overflow: hidden; border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 32px 64px -38px rgba(110, 81, 87, 0.5);
+  background: var(--color-mist);
+}
+.img-frame img { display: block; height: 100%; width: 100%; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.img-frame:hover img { transform: scale(1.05); }
+
+/* hide scrollbar for touch carousels */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ---------- Hero visual: swipe carousel (mobile) → layered collage (lg) ---------- */
+.hero-stage {
+  display: flex; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0.25rem 1.25rem 1rem; margin: 0 -1.25rem; scroll-padding: 1.25rem;
+}
+.hero-tile { flex: 0 0 78%; scroll-snap-align: center; }
+.hero-tile--main { flex-basis: 82%; }
+
+@media (min-width: 1024px) {
+  .hero-stage { display: block; overflow: visible; padding: 0; margin: 0; position: relative; }
+  .hero-tile { position: absolute; }
+  .hero-tile--main { position: relative; width: 80%; margin-left: auto; }
+  .hero-tile--a { width: 40%; bottom: -1.5rem; left: -1.5rem; z-index: 20; transform: rotate(-5deg); }
+  .hero-tile--b { width: 34%; top: 12%; left: -2.75rem; z-index: 20; transform: rotate(4deg); }
+  .hero-tile--a .img-frame, .hero-tile--b .img-frame { border-width: 4px; border-color: #fff; }
+}
+
 /* ---------- Nav ---------- */
 #siteNav { transition: background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; border-bottom: 1px solid transparent; }
 #siteNav.scrolled {
@@ -268,6 +311,7 @@ h1, h2, h3, h4 {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .kinetic-line > span { transform: none !important; opacity: 1 !important; animation: none !important; }
   .swoosh path { stroke-dashoffset: 0 !important; }
   html { scroll-behavior: auto; }
   [data-magnetic] { transform: none !important; }

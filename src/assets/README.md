@@ -1,7 +1,7 @@
 # Image assets — ⚠️ PLACEHOLDERS TO SWAP BEFORE GO-LIVE
 
-Every image in this folder is a **licensed free-stock placeholder** (Unsplash,
-free for commercial use) used only to build the layout. **Replace each with
+Every image in this folder is an **AI-generated placeholder** in the brand's
+warm nude/blush palette, used to build the layout. **Replace each with
 Melanie's own nail photography before the site goes live** — the whole appeal of a
 nail site is her real work.
 
@@ -11,9 +11,11 @@ Astro's `<Image>` generates optimized WebP/AVIF at build time).
 
 | File | Used in | Suggested replacement |
 |---|---|---|
-| `hero-nails.jpg` | `Hero.astro` (LCP image) | Her best signature soft/nude set, portrait crop (4:5) |
+| `hero-nails.jpg` | `Hero.astro` (LCP image, main tile) | Her best signature soft/nude set, portrait crop (4:5) |
+| `hero-angle-2.jpg` | `Hero.astro` (macro accent tile) | A glossy close-up / macro detail (square) |
+| `hero-angle-3.jpg` | `Hero.astro` (lifestyle accent tile) | A hand-at-rest lifestyle angle (4:3) |
 | `studio.jpg` | `About.astro` | A real photo of Melanie and/or her cozy studio (4:5) |
-| `nails-1.jpg` … `nails-5.jpg` | `Gallery.astro` | 5+ of her real nail sets (any orientation — masonry adapts) |
+| `nails-1.jpg` … `nails-6.jpg` | `Gallery.astro` | 6+ of her real nail sets (any orientation — masonry adapts) |
 
 Add more gallery tiles by importing extra images in `Gallery.astro` and pushing
 them into the `shots` array.
